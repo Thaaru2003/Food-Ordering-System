@@ -54,22 +54,21 @@ export const update = async(req, res)=>{
     }
 }
 
-export const deletecustomerName = async(req, res)=>{
-    try{
-       
+export const deleteCustomer = async (req, res) => {
+    try {
         const id = req.params.id;
-        
-        const orderExist = await Order.findOne({_id:id})
-        if(!orderExist){
-            return res.status(404).json({message : "customerName not found."});
+
+        const orderExist = await Order.findById(id);
+
+        if (!orderExist) {
+            return res.status(404).json({ message: "Order not found." });
         }
 
-        await Order.findOneAndDelete(id);
-       
-       res.status(201).json({message: "customerName deleted Successfully."});
-        
-    } catch(error){
-        
-        res.status(500).json({error: "Internal server Error."});
+        await Order.findByIdAndDelete(id);
+
+        return res.status(200).json({ message: "Order deleted successfully." });
+
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error." });
     }
-}
+};
