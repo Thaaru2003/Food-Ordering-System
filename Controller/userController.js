@@ -41,13 +41,13 @@ export const update = async(req, res)=>{
         
         const id = req.params.id;
         
-        const orderExist = await Order.findOne({_id:id})
-        if(!orderExist){
-            return res.status(404).json({message : "customerName not found."});
+        const OrderExist = await Order.findOne({_id:id})
+        if(!OrderExist){
+            return res.status(404).json({message : "student not found."});
         }
        
-        const updatecustomer = await Order.findByIdAndUpdate(id,req.body,{new : true});
-       res.status(201).json(updatecustomer);
+        const updateOrder = await Order.findByIdAndUpdate(id,req.body,{new : true});
+       res.status(201).json(updateOrder);
     } catch(error){
        
         res.status(500).json({error: "Internal server Error."});
